@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a23e51a4.chunk.css",
+    "main.js": "/static/js/main.4d89e568.chunk.js",
+    "main.js.map": "/static/js/main.4d89e568.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.9ce8b348.js",
+    "runtime-main.js.map": "/static/js/runtime-main.9ce8b348.js.map",
+    "static/css/2.f3159b2c.chunk.css": "/static/css/2.f3159b2c.chunk.css",
+    "static/js/2.dd327b8c.chunk.js": "/static/js/2.dd327b8c.chunk.js",
+    "static/js/2.dd327b8c.chunk.js.map": "/static/js/2.dd327b8c.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.69be1e8f3893696a650e1fc7f3129454.js": "/precache-manifest.69be1e8f3893696a650e1fc7f3129454.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.f3159b2c.chunk.css.map": "/static/css/2.f3159b2c.chunk.css.map",
+    "static/css/main.a23e51a4.chunk.css.map": "/static/css/main.a23e51a4.chunk.css.map",
+    "static/js/2.dd327b8c.chunk.js.LICENSE.txt": "/static/js/2.dd327b8c.chunk.js.LICENSE.txt",
+    "static/media/medx-logo.png": "/static/media/medx-logo.a6f24854.png",
+    "static/media/pro.png": "/static/media/pro.30269280.png",
+    "static/media/user.png": "/static/media/user.7ea4af7d.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9ce8b348.js",
+    "static/css/2.f3159b2c.chunk.css",
+    "static/js/2.dd327b8c.chunk.js",
+    "static/css/main.a23e51a4.chunk.css",
+    "static/js/main.4d89e568.chunk.js"
+  ]
+}
