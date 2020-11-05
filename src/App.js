@@ -64,6 +64,7 @@ import GridNews from './component/GridNews';
 import CreateNews from './component/CreateNews';
 import UpdateNews from './component/UpdateNews';
 import ViewNews from './component/ViewNews';
+import GridProductOrder from './component/GridProductOrders'
 
 
 export class App extends Component {
@@ -78,6 +79,7 @@ export class App extends Component {
             <Route path="/component/Dashboard" component={Dashboard}/>
 
             <Route path="/component/GridEvents" component={GridEvents} />
+            <Route path="/component/GridProductOrders" component={GridProductOrder}/>
 
             <Route path="/component/UploadEvents" component={UploadEvents}/>
             <Route path="/component/GridTerms" component={GridTerms} />

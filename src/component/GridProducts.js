@@ -5,6 +5,44 @@ import axios from 'axios';
 import $ from 'jquery';
 
 export class GridProducts extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+        }
+    }
+
+    componentDidMount() {
+        var data;
+        axios({
+            method: 'get',
+            url: Serverurl + 'products_show',
+            data: data,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            config: {
+                headers: { 'Content-Type': 'application/json' }
+            }
+
+        }).then(res => {
+            console.log('res', res.data)
+            console.log('hey', res.data)
+            this.setState({
+                data: res.data,
+            })
+            $(document).ready(function () {
+                $('#datatable2').DataTable();
+            });
+            // console.log('data', res.data.data)
+        }).catch((err) => {
+            console.log(err)
+            if (err) {
+                // console.log('err', err.response)
+                console.log({ err })
+            }
+        })
+    }
     
     render() {
         return (
@@ -31,7 +69,6 @@ export class GridProducts extends Component {
                                                     <th>Description</th>
                                                     <th>Stock</th>
                                                     <th>Price</th>
-                                                    <th>Category ID</th>
                                                      
                                                     <th>Actions</th>
 
@@ -42,23 +79,27 @@ export class GridProducts extends Component {
 
                                             <tbody>
 
-                                                <tr >
-                                                    <td></td>
-                                                    <td>test</td>
-                                                    <td>lorem ipsum</td>
-                                                    <td>in stock</td>
-                                                    <td>₨490.00</td>
-                                                    <td>1</td>
-                                                    
-
-                                                    <td>
+                                            {this.state.data.map((product) =>
+                                                    <tr key={product.id}>
+                                                        <td><img src={product.image} width="50px"/></td>
+                                                        <td>{product.name}</td>
+                                                        <td>{product.description}</td>
+                                                        <td>{product.stock}</td>
+                                                        <td>{product.price}</td>
+                                                        <td>
+                                                            {/* <div class="icon-pad">
+                                                                <a><i className="fas fa-pencil-alt"></i></a>
+                                                            </div> */}
                                                         <div class="icon-pad">
                                                             <a href="/component/updateProduct"><i className="fas fa-pencil-alt"></i></a>
                                                             <a href="/component/ViewProduct"><i className="fas fa-eye"></i></a>
                                                             <i className="fas fa-trash-alt"></i>
                                                         </div>
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                                    <td>
                                                     </td>
-                                                </tr>
 
 
                                             </tbody>

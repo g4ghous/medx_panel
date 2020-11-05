@@ -106,7 +106,7 @@ export class Navbar extends Component {
                                             <li>
                                                 <a href="/component/gridBusinessUsers" className="waves-effect">
                                                     <i className="fas fa-user-secret"></i>
-                                                    <span style={{ fontSize: "10.7px" }}>Customers</span>
+                                                    <span style={{ fontSize: "10.7px" }}>Users</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -140,12 +140,12 @@ export class Navbar extends Component {
                                                     <span style={{ fontSize: "10.7px" }}>NEWS</span>
                                                 </a>
                                             </li>
-                                            <li>
+                                            {/* <li>
                                                 <a href="/component/gridReports" className="waves-effect">
                                                     <i className="fa fa-file"></i>
                                                     <span style={{ fontSize: "10.7px" }}>Reports</span>
                                                 </a>
-                                            </li>
+                                            </li> */}
                                             
 
                                                         {/* <li className="has_sub">
@@ -245,10 +245,6 @@ export class Navbar extends Component {
                                                 <div className="dropdown-item noti-title">
                                                     <h5>Welcome</h5>
                                                 </div>
-                                                <a className="dropdown-item" href="#"><i className="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
-                                                <a className="dropdown-item" href="#"><i className="mdi mdi-wallet m-r-5 text-muted"></i> My Wallet</a>
-                                                <a className="dropdown-item" href="#"><span className="badge badge-success float-right">5</span><i className="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
-                                                <a className="dropdown-item" href="#"><i className="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>
                                                 {/* {/* <div className="dropdown-divider"></div> */}
                                                 <a className="dropdown-item" onClick={this.logout.bind(this)}><i className="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
                                             </div>

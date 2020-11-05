@@ -71,7 +71,7 @@ export class GridBusinessUsers extends Component {
                                             <h4>List Users</h4>
                                         </div>
                                         <div class="button-align">
-                                            <a href="/component/createBusinessUser" type="button" class="btn btn-danger waves-effect waves-light submit-button" >Add Customer</a>
+                                            <a href="/component/createBusinessUser" type="button" class="btn btn-danger waves-effect waves-light submit-button" >Add User</a>
                                         </div>
                                     </div>
                                     <div class="table-3">

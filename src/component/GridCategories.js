@@ -5,7 +5,44 @@ import axios from 'axios';
 import $ from 'jquery';
 
 export class GridCategories extends Component {
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+        }
+    }
+
+    componentDidMount() {
+        var data;
+        axios({
+            method: 'get',
+            url: Serverurl + 'category_show',
+            data: data,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            config: {
+                headers: { 'Content-Type': 'application/json' }
+            }
+
+        }).then(res => {
+            console.log('res', res.data)
+            console.log('hey', res.data)
+            this.setState({
+                data: res.data,
+            })
+            $(document).ready(function () {
+                $('#datatable2').DataTable();
+            });
+            // console.log('data', res.data.data)
+        }).catch((err) => {
+            console.log(err)
+            if (err) {
+                // console.log('err', err.response)
+                console.log({ err })
+            }
+        })
+    }    
 
     render() {
         return (
@@ -29,28 +66,25 @@ export class GridCategories extends Component {
                                                 <tr>
                                                     <th>Image</th>
                                                     <th>Name</th>
-                                                
-                                                    <th>Actions</th>
-
-
+                                                    <th>Description</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
 
-
-                                            <tr >
-                                                <td></td>
-                                                <td>Computer</td>
-                                                
-                                                
-
-                                                <td>
-                                                    <div class="icon-pad">
-                                                        <a href="/component/updateCategory"><i className="fas fa-pencil-alt"></i></a>
-                                                        <a href="/component/ViewCategory"><i className="fas fa-eye"></i></a>
-                                                        <i className="fas fa-trash-alt"></i>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            <tbody>
+                                            {this.state.data.map((order) =>
+                                                    <tr key={order.id}>
+                                                        <td><img src={order.image} width="50"/></td>
+                                                        <td>{order.name}</td>
+                                                        <td>{order.description}</td>
+                                                        <td>
+                                                            <div class="icon-pad">
+                                                                <a><i className="fas fa-pencil-alt"></i></a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
