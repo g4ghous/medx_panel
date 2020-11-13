@@ -7,7 +7,7 @@ import { GridTerms } from './component/GridTerms';
 import GridBusinessUsers from './component/GridBusinessUsers';
 import { GridEventType } from './component/GridEventType';
 import { GridSponsor } from './component/GridSponsor';
-import { GridPolicy } from './component/GridPolicy'
+import { GridDisease } from './component/GridDisease'
 import { CreateEvents } from './component/CreateEvents';
 import { CreateEventType } from './component/CreateEventType';
 import CreateBusinessUser from './component/CreateBusinessUser';
@@ -37,7 +37,7 @@ import UpdateBooking, { UpdateGuidelines } from './component/UpdateGuidelines';
 import Dashboard from './component/Dashboard';
 import ViewEvents from './component/ViewEvents';
 import GridEventList from './component/GridEventList';
-import CreatePrivacy from './component/CreatePrivacy';
+import CreatePrivacy from './component/CreateDisease';
 import GridFaourites from './component/GridEventList';
 import GridFavourites from './component/GridFavourites';
 import Slider from './component/Slider';
@@ -64,7 +64,11 @@ import GridNews from './component/GridNews';
 import CreateNews from './component/CreateNews';
 import UpdateNews from './component/UpdateNews';
 import ViewNews from './component/ViewNews';
-import GridProductOrder from './component/GridProductOrders'
+import GridProductOrder from './component/GridProductOrders';
+import CreateDisease from './component/CreateDisease';
+import GridBrands from './component/GridBrands';
+import CreateBrands from './component/CreateBrands'
+
 
 
 export class App extends Component {
@@ -86,7 +90,7 @@ export class App extends Component {
             <Route path="/component/GridEventList" component={GridEventList} />
             <Route path="/component/GridEventType" component={GridEventType} />
             <Route path="/component/GridSponsor" component={GridSponsor} />
-            <Route path="/component/GridPolicy" component={GridPolicy}/>
+            <Route path="/component/GridDisease" component={GridDisease}/>
             <Route path="/component/GridGuidelines" component={GridGuidelines}/>
             <Route path="/component/GridFavourite" component={GridFaourites} />
             <Route path="/component/GridFavourites" component={GridFavourites} />
@@ -101,6 +105,10 @@ export class App extends Component {
             <Route path="/component/GridContact" component={GridContact} />
             <Route path="/component/GridNews" component={GridNews} />
             
+            <Route path="/component/GridBrands" component={GridBrands}/>
+            <Route path="/component/CreateBrands" component={CreateBrands}/>
+            
+            
 
 
 
@@ -110,7 +118,7 @@ export class App extends Component {
             <Route path="/component/CreateEventType" component={CreateEventType} />
             <Route path="/component/CreateSponsor" component={CreateSponsor} />
             <Route path="/component/CreateTerms" component={CreateTerms} />
-            <Route path="/component/CreatePrivacy" component={CreatePrivacy} />
+            <Route path="/component/CreateDisease" component={CreateDisease} />
             <Route path="/component/CreateSLider" component={CreateSLider} />
 
             <Route path="/component/createBusinessUser" component={CreateBusinessUser} />

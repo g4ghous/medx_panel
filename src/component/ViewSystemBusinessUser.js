@@ -9,27 +9,21 @@ export class Home extends Component {
         super(props);
         this.state = {
             data: [],
-            first_name_view: "",
-            last_name_view: "",
-            email_view: "",
-            avatar_view: "",
-            contact_number_view: "",
-            status_view: "",
-            user_name_view: "",
-            user_type_view: "",
-            designation_view: ""
+            name_view:"",
+            email_view:"",
+            msg_view:""
         }
     }
     componentDidMount() {
-        var id = localStorage.getItem('buserId')
+        var id = localStorage.getItem('viewContact')
         console.log(id)
         var data;
         axios({
             method: 'get',
-            url: Serverurl + 'user/' + id,
+            url: Serverurl + 'contact_show/' + id,
             data: data,
             headers: {
-                'Authorization': `bearer ${localStorage.getItem('token')}`,
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
             },
             config: {
                 headers: { 'Content-Type': 'application/json' }
@@ -37,20 +31,14 @@ export class Home extends Component {
         })
 
             .then((res) => {
-                console.log('res', res)
-                if (res.status === 'true') {
-                    console.log(data)
-                }
+                console.log('res', res.data)
+                // if (res.status === 'true') {
+                //     console.log(data)
+                // }
                 this.setState({
-                    first_name_view: res.data.data.first_name,
-                    last_name_view: res.data.data.last_name,
-                    avatar_view: res.data.data.avatar,
-                    email_view: res.data.data.email,
-                    contact_number_view: res.data.data.contact_number,
-                    user_name_view: res.data.data.username,
-                    status_view: res.data.data.status,
-                    user_type_view: res.data.data.user_type_id,
-                    designation_view: res.data.data.designation
+                    name_view:res.data.name,
+                    email_view: res.data.email,
+                    msg_view:res.data.message
                 })
                 console.log('data', data)
             }).catch((err) => {
@@ -72,25 +60,25 @@ export class Home extends Component {
                                     <ul>
                                         <div class="row">
                                             <li class="col-12"><h5>Name</h5>
-                                                {/* <h6>{this.state.first_name_view}{this.state.last_name_view}</h6> */}
+                                                <h6>{this.state.name_view}</h6>
                                             </li>
                                         </div>
                                         <div class="row">
                                             <li class="col-12">
                                                 <h5>Email</h5>
-                                                {/* <h6>{this.state.user_type_view == 1 ? "super admin" : "admin"}</h6> */}
+                                                <h6>{this.state.email_view}</h6>
                                             </li>
                                         </div>
                                         <div class="row">
                                             <li class="col-12">
-                                                <h5>Phone</h5>
-                                                {/* <h6>{this.state.user_type_view == 1 ? "super admin" : "admin"}</h6> */}
+                                                <h5>Message</h5>
+                                                <h6>{this.state.msg_view}</h6>
                                             </li>
                                         </div>
                                         
                                     </ul>
                                     <div class="button-align">
-                                        <a href="/component/gridBusinessUsers" type="button" class="btn btn-danger waves-effect waves-light submit-button">Back</a>
+                                        <a href="/component/gridContact" type="button" class="btn btn-danger waves-effect waves-light submit-button">Back</a>
                                     </div>
                                 </div>
                             </div>

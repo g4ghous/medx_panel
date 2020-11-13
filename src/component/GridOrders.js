@@ -9,6 +9,8 @@ export class GridOrders extends Component {
         super(props);
         this.state = {
             data: [],
+            order:[],
+            name:""
         }
     }
 
@@ -42,8 +44,44 @@ export class GridOrders extends Component {
                 console.log({ err })
             }
         })
+
+        var id = localStorage.getItem('view')
+        var data;
+        axios({
+            method: 'get',
+            url: Serverurl + 'orderproducts_search/' + id,
+            data: data,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            config: {
+                headers: { 'Content-Type': 'application/json' }
+            }
+
+        }).then(res => {
+            console.log('res', res.data)
+            console.log('hey', res.data)
+            this.setState({
+                order: res.data,
+
+            })
+            $(document).ready(function () {
+                $('#datatable3').DataTable();
+            });
+            // console.log('data', res.data.data)
+        }).catch((err) => {
+            console.log(err)
+            if (err) {
+                // console.log('err', err.response)
+                console.log({ err })
+            }
+        })
     }
 
+    view(id) {
+        localStorage.setItem('view', id)
+        console.log("idp", id)
+    }
     render() {
         return (
             <div>
@@ -57,7 +95,7 @@ export class GridOrders extends Component {
                                             <h4>List Orders</h4>
                                         </div>
                                         <div class="button-align">
-                                            <a href="/component/GridProductOrders" type="button" class="btn btn-danger waves-effect waves-light submit-button" >Order Products</a>
+                                            {/* <a href="/component/GridProductOrders" type="button" class="btn btn-danger waves-effect waves-light submit-button" >Order Products</a> */}
                                         </div>
                                     </div>
                                     <div class="table-3">
@@ -78,7 +116,7 @@ export class GridOrders extends Component {
 
 
                                             <tbody>
-                                            {this.state.data.map((order) =>
+                                                {this.state.data.map((order) =>
                                                     <tr key={order.id}>
                                                         <td>{order.id}</td>
                                                         <td>{order.name}</td>
@@ -88,13 +126,61 @@ export class GridOrders extends Component {
                                                         <td>{order.status}</td>
                                                         <td>
                                                             <div class="icon-pad">
-                                                                <a><i className="fas fa-pencil-alt"></i></a>
+                                                                <a data-toggle="modal" data-target="#exampleModalCenter" onClick={this.view.bind(this, order.id)}><i className="fas fa-eye"></i></a>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                 )}
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Order Details</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <div class="table-3">
+                                        <table id="datatable3" class="table">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>Order id</th>
+                                                    <th>Name</th>
+                                                    <th>Qty</th>
+                                                    <th>Price</th>
+
+                                                </tr>
+                                            </thead>
+
+
+                                            <tbody>
+                                                {this.state.order.map((order_product) =>
+                                                    <tr key={order_product.id}>
+                                                        <td>{order_product.order_id}</td>
+                                                        <td>{order_product.name}</td>
+                                                        <td>{order_product.quantity}</td>
+                                                        <td>{order_product.price}</td>
+                                                        
+                                                    </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
+      </div>
+                                    <div class="modal-footer">
+                                        {/* <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> */}
+                                        {/* <button type="button" class="btn btn-primary">Save changes</button> */}
                                     </div>
                                 </div>
                             </div>

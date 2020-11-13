@@ -115,6 +115,21 @@ export class Navbar extends Component {
                                                     <span style={{ fontSize: "10.7px" }}>Products</span>
                                                 </a>
                                             </li>
+
+                                            <li>
+                                                <a href="/component/GridBrands" className="waves-effect">
+                                                    <i class="far fa-copyright"></i>
+                                                    <span style={{ fontSize: "10.7px" }}>Brands</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/component/GridDisease" className="waves-effect">
+                                                <i className="fab fa-product-hunt"></i>
+                                                    <span style={{ fontSize: "10.7px" }}>Diseases</span>
+                                                </a>
+                                            </li>
+
                                             <li>
                                                 <a href="/component/gridOrders" className="waves-effect">
                                                     <i className="fab fa-first-order"></i>

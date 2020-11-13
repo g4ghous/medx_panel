@@ -16,7 +16,7 @@ export class GridBusinessUsers extends Component {
         var data;
         axios({
             method: 'get',
-            url: Serverurl + "user/list",
+            url: Serverurl + "user_show",
             data: data,
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -26,10 +26,10 @@ export class GridBusinessUsers extends Component {
             }
 
         }).then(res => {
-            console.log('res', res.data.data)
+            console.log('res', res.data)
             console.log('hey', res.data)
             this.setState({
-                data: res.data.data,
+                data: res.data,
             })
             $(document).ready(function () {
                 $('#datatable2').DataTable();
@@ -44,6 +44,8 @@ export class GridBusinessUsers extends Component {
         })
     }
 
+
+    
 
 
     // viewUser(id) {
@@ -81,7 +83,7 @@ export class GridBusinessUsers extends Component {
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Phone</th>
-                                                    
+                                                    <th>User Type</th>
                                                     <th>Actions</th>
 
                                                 </tr>
@@ -90,19 +92,20 @@ export class GridBusinessUsers extends Component {
 
                                             <tbody>
                                                 
-                                                    <tr >
-                                                        <td>test</td>
-                                                        <td>test@test.com</td>
-                                                        <td>03121234567</td>
-                                                       
-                                                         <td>
+                                            {this.state.data.map((disease) =>
+                                                    <tr key={disease.id}>
+                                                        <td>{disease.name}</td>
+                                                        <td>{disease.email}</td>
+                                                        <td>{disease.phone}</td>
+                                                        <td>{disease.user_type}</td>
+
+                                                        <td>
                                                             <div class="icon-pad">
-                                                                <a href="/component/updateBusinessUser"><i className="fas fa-pencil-alt"></i></a>
-                                                                <a href="/component/ViewSystemBusinessUser"><i className="fas fa-eye"></i></a>
-                                                                <i className="fas fa-trash-alt"></i>
+                                                                <a data-toggle="modal" data-target="#userEdit"><i className="fas fa-trash-alt"></i></a>
                                                             </div>
-                                                        </td> 
+                                                        </td>
                                                     </tr>
+                                                )}
                                                 
 
                                             </tbody>

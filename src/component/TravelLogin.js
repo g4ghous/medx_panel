@@ -107,31 +107,38 @@ export class TravelLogin extends Component {
                     data: data,
                 })
                     .then(res => {
+                        var validation = false;
                         console.log("mera res", res.data.Data.user_type)
-                        if (res.data.Data.user_type == "customer") {
-                            this.setState({
-                                loading: true
-                            })
-                            setTimeout(() => {
-                                this.setState({
-                                    loading: false
-                                })
-                                this.setState((willSuccess) => {
-                                    if (willSuccess) {
-                                        swal("error_message[0]", {
-                                            icon: "warning",
-                                        });
-                                    } else {
-                                        swal("Your imaginary file is safe!");
-                                    }
-                                })
-                            window.location.href = "/"
-                            }, 3000)
+                        if (res.data.Data.user_type == "admin") {
+                            validation = true;
+                            // this.setState({
+                            //     loading: true
+                            // })
+                            // setTimeout(() => {
+                            //     this.setState({
+                            //         loading: false
+                            //     })
+                            //     this.setState((willSuccess) => {
+                            //         if (willSuccess) {
+                            //             swal("error_message[0]", {
+                            //                 icon: "warning",
+                            //             });
+                            //         } else {
+                            //             swal("Your imaginary file is safe!");
+                            //         }
+                            //     })
+                            // window.location.href = "/"
+                            // }, 3000)
+                            console.log('res', res.data.success.token)
+                            console.log('Token', res.data.success.token)
+                            localStorage.setItem('token', res.data.success.token)
+                            window.location.href = "/component/Dashboard"
                         }
-                        console.log('res', res.data.success.token)
-                        console.log('Token', res.data.success.token)
-                        localStorage.setItem('token', res.data.success.token)
-                        window.location.href = "/component/Dashboard"
+                        if (validation == false){
+                            this.setState({
+                                errorText: "*Incorrect email or password"
+                            })
+                        }
 
                         this.setState({
                             data: res.data,
@@ -275,7 +282,7 @@ export class TravelLogin extends Component {
 
                                         <div className="form-group m-t-10 mb-0 row">
                                             <div className="col-sm-12 m-t-20 my-forgot">
-                                                <a href="/component/TravelForgot" className="text-muted"><i className="mdi mdi-lock"></i> <small>Forgot your password ?</small></a>
+                                                {/* <a href="/component/TravelForgot" className="text-muted"><i className="mdi mdi-lock"></i> <small>Forgot your password ?</small></a> */}
                                             </div>
                                         </div>
                                     </form>

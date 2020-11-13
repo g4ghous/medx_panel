@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Serverurl, Serverurlimg } from '../Common/ServerUrl';
 import axios from 'axios';
 import $ from 'jquery';
+import swal from 'sweetalert';
 
 export class GridCategories extends Component {
     constructor(props) {
@@ -44,6 +45,76 @@ export class GridCategories extends Component {
         })
     }    
 
+    delete(id) {
+        localStorage.setItem('deleteEvent', id)
+        console.log("idp", id)
+    }
+
+    deleteCategory() {
+        // var id = localStorage.getItem("deleteEvent")
+
+        // var Check = parseInt(id)
+
+        // this.setState({
+        //     GuideId: Check,
+        
+        // })
+
+            var id = localStorage.getItem("deleteEvent")
+        var data;
+
+        axios({
+            method: 'DELETE',
+            url: Serverurl + 'category_delete/' + id,
+            data: data,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            config: {
+                headers: { 'Content-Type': 'application/json' }
+            }
+
+        })
+
+            .then((res) => {
+                console.log('res', res.data)
+                if (res.status === 'true') {
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                    this.setState({
+                        loading: true
+                    })
+                } else {
+                    swal("Your Record Succesfully Deleted!");
+                }
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000)
+            })
+
+            .catch((err) => {
+                console.log(err)
+                if (err) {
+                    setTimeout(() => {
+                        this.setState({
+                            loading: false
+                        })
+                        this.setState((willSuccess) => {
+                            if (willSuccess) {
+                                swal("Check Your Internet Connection", {
+                                    icon: "warning",
+                                });
+                            } else {
+                                swal("Your Record Succesfully Deleted!");
+                            }
+                        })
+                    }, 5000)
+                }
+            })
+    }
+
+
     render() {
         return (
             <div>
@@ -79,13 +150,38 @@ export class GridCategories extends Component {
                                                         <td>{order.description}</td>
                                                         <td>
                                                             <div class="icon-pad">
-                                                                <a><i className="fas fa-pencil-alt"></i></a>
+                                                                <a data-toggle="modal" data-target="#userEdit" onClick={this.delete.bind(this, order.id)}><i className="fas fa-trash-alt"></i></a>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                 )}
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="user-modal">
+                        <div className="modal fade" id="userEdit" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel">Category Delete</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <p>
+                                            <strong>
+                                                You're about to delete a Category from this page. Are you sure?
+                                            </strong>
+                                        </p>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="button" className="btn btn-primary" onClick={this.deleteCategory.bind(this)}>Delete</button>
                                     </div>
                                 </div>
                             </div>

@@ -5,6 +5,49 @@ import axios from 'axios';
 import $ from 'jquery';
 
 export class GridContact extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+        }
+    }
+
+    componentDidMount() {
+        var data;
+        axios({
+            method: 'get',
+            url: Serverurl + "contact_show",
+            data: data,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            config: {
+                headers: { 'Content-Type': 'application/json' }
+            }
+
+        }).then(res => {
+            console.log('res', res.data)
+            console.log('hey', res.data)
+            this.setState({
+                data: res.data,
+            })
+            $(document).ready(function () {
+                $('#datatable2').DataTable();
+            });
+            console.log('data', res.data.data)
+        }).catch((err) => {
+            console.log(err)
+            if (err) {
+                console.log('err', err.response)
+                console.log({ err })
+            }
+        })
+    }
+
+    view(id) {
+        localStorage.setItem('viewContact', id)
+        console.log("idp", id)
+    }
     
 
     render() {
@@ -26,33 +69,30 @@ export class GridContact extends Component {
                                                 <tr>
                                                     <th>Name</th>
                                                     <th>Email</th>
-                                                    <th>Subject</th>
                                                     <th>Message</th>
-                                                    
+                                                    <th>Actions</th>
                                                     
                                                 </tr>
                                             </thead>
 
 
-                                            {/* <tbody>
+                                            <tbody>
                                                 {this.state.data.map((users) =>
-                                                    <tr key={users._id}>
+                                                    <tr key={users.id}>
                                                         <td>{users.name}</td>
-                                                        <td>{users.user_name}</td>
                                                         <td>{users.email}</td>
-                                                        <td>{users.phone_number}</td>
-                                                        <td>{users.login_with}</td>
-                                                        {/* <td>
+                                                        <td>{users.message}</td>
+                                                         <td>
                                                             <div class="icon-pad">
-                                                                <a href="/component/updateBusinessUser"><i className="fas fa-pencil-alt"></i></a>
-                                                                <a href="/component/ViewSystemBusinessUser"><i className="fas fa-eye"></i></a>
-                                                                <i className="fas fa-trash-alt"></i>
+                                                                {/* <a href="/component/updateBusinessUser"><i className="fas fa-pencil-alt"></i></a> */}
+                                                                <a href="/component/ViewSystemBusinessUser" onClick={this.view.bind(this,users.id)}><i className="fas fa-eye"></i></a>
+                                                                {/* <i className="fas fa-trash-alt"></i> */}
                                                             </div>
                                                         </td> 
                                                     </tr>
                                                 )}
 
-                                            </tbody> */}
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
