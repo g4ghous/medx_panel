@@ -4,8 +4,6 @@ import axios from 'axios';
 import $ from 'jquery';
 import swal from 'sweetalert';
 
-
-
 export class CreateProduct extends Component {
     constructor(props) {
         super(props); {
@@ -442,8 +440,7 @@ export class CreateProduct extends Component {
                                                     <option>Select Category</option>
                                                     {this.state.category_list.map((category) => {
                                                         return (
-                                                            <option key={category.id} value={category.id}>{category.name}</option>
-                                                            
+                                                            <option key={category.id} value={category.id}>{category.name}</option>                                                            
                                                         )
                                                     })}
                                                 </select>

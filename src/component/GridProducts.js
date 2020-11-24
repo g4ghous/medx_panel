@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Serverurl, Serverurlimg } from '../Common/ServerUrl';
 import axios from 'axios';
 import $ from 'jquery';
+import swal from 'sweetalert';
 
 export class GridProducts extends Component {
     constructor(props) {
@@ -13,6 +14,10 @@ export class GridProducts extends Component {
     }
 
     componentDidMount() {
+        this.productsShow();
+    }
+
+    productsShow = () => {
         var data;
         axios({
             method: 'get',
@@ -42,6 +47,47 @@ export class GridProducts extends Component {
                 console.log({ err })
             }
         })
+    }
+
+    deleteProductHandler = (id) => {
+        axios({
+            method: 'delete',
+            url: Serverurl + 'products_delete/' + id,
+            // data: data,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            config: {
+                headers: { 'Content-Type': 'application/json' }
+            }
+
+        }).then(res => {
+            console.log('res', res.data)
+            console.log('Response Data', res.data)
+
+            this.productsShow();
+            swal("Product deleted successfully!");
+
+            // this.setState({
+            //     data: res.data,
+            // })
+            $(document).ready(function () {
+                $('#datatable2').DataTable();
+            });
+            // console.log('data', res.data.data)
+        }).catch((err) => {
+            console.log(err)
+            swal("Something went wrong!");
+            if (err) {
+                // console.log('err', err.response)
+                console.log({ err })
+            }
+        })
+    }
+
+    saveProductId = (id) => {
+        localStorage.setItem('productId', id);
+        // console.log('Booking Id: ', id)
     }
     
     render() {
@@ -91,9 +137,9 @@ export class GridProducts extends Component {
                                                                 <a><i className="fas fa-pencil-alt"></i></a>
                                                             </div> */}
                                                         <div class="icon-pad">
-                                                            <a href="/component/updateProduct"><i className="fas fa-pencil-alt"></i></a>
+                                                            <a href="/component/updateProduct" onClick={this.saveProductId.bind(this, product.id)}><i className="fas fa-pencil-alt"></i></a>
                                                             <a href="/component/ViewProduct"><i className="fas fa-eye"></i></a>
-                                                            <i className="fas fa-trash-alt"></i>
+                                                            <i className="fas fa-trash-alt" onClick={this.deleteProductHandler.bind(this, product.id)}></i>
                                                         </div>
                                                         </td>
                                                     </tr>

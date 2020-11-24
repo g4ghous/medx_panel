@@ -43,14 +43,21 @@ export class GridOrders extends Component {
                 // console.log('err', err.response)
                 console.log({ err })
             }
-        })
+        })        
+    }
 
-        var id = localStorage.getItem('view')
-        var data;
+    view(id) {
+        // localStorage.setItem('view', id)
+        // console.log("idp", id)
+
+        // var id = localStorage.getItem('view')
+        // var data = {
+        //     'id': id
+        // };
         axios({
             method: 'get',
             url: Serverurl + 'orderproducts_search/' + id,
-            data: data,
+            // data: data,
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
             },
@@ -78,10 +85,11 @@ export class GridOrders extends Component {
         })
     }
 
-    view(id) {
-        localStorage.setItem('view', id)
-        console.log("idp", id)
+    saveOrderId = (id) => {
+        localStorage.setItem('orderId', id);
+        // console.log('Booking Id: ', id)
     }
+
     render() {
         return (
             <div>
@@ -105,7 +113,9 @@ export class GridOrders extends Component {
 
                                                     <th>Order id</th>
                                                     <th>Name</th>
+                                                    <th>Phone</th>
                                                     <th>Address</th>
+                                                    <th>Prescription</th>
                                                     <th>Date</th>
                                                     <th>Total</th>
                                                     <th>Status</th>
@@ -114,18 +124,22 @@ export class GridOrders extends Component {
                                                 </tr>
                                             </thead>
 
-
                                             <tbody>
                                                 {this.state.data.map((order) =>
                                                     <tr key={order.id}>
                                                         <td>{order.id}</td>
                                                         <td>{order.name}</td>
+                                                        <td>{order.phone}</td>
                                                         <td>{order.address}</td>
+                                                        <td><img src={order.prescription} height={50} width={50} /></td>
                                                         <td>{order.date}</td>
                                                         <td>{order.total}</td>
                                                         <td>{order.status}</td>
                                                         <td>
                                                             <div class="icon-pad">
+                                                                <a href="/component/updateOrder" onClick={this.saveOrderId.bind(this, order.id)}>
+                                                                    <i className="fas fa-pencil-alt"></i>
+                                                                </a>
                                                                 <a data-toggle="modal" data-target="#exampleModalCenter" onClick={this.view.bind(this, order.id)}><i className="fas fa-eye"></i></a>
                                                             </div>
                                                         </td>
@@ -140,7 +154,7 @@ export class GridOrders extends Component {
 
 
                         
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -156,19 +170,21 @@ export class GridOrders extends Component {
                                                 <tr>
 
                                                     <th>Order id</th>
+                                                    <th>Image</th>
                                                     <th>Name</th>
+                                                    <th>Package Type</th>
                                                     <th>Qty</th>
                                                     <th>Price</th>
 
                                                 </tr>
                                             </thead>
-
-
                                             <tbody>
                                                 {this.state.order.map((order_product) =>
                                                     <tr key={order_product.id}>
                                                         <td>{order_product.order_id}</td>
+                                                        <td><img src={order_product.image} height={30} width={30} /></td>
                                                         <td>{order_product.name}</td>
+                                                        <td>{order_product.package_type}</td>
                                                         <td>{order_product.quantity}</td>
                                                         <td>{order_product.price}</td>
                                                         
@@ -177,7 +193,7 @@ export class GridOrders extends Component {
                                             </tbody>
                                         </table>
                                     </div>
-      </div>
+                                 </div>
                                     <div class="modal-footer">
                                         {/* <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> */}
                                         {/* <button type="button" class="btn btn-primary">Save changes</button> */}

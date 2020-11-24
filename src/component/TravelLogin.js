@@ -63,7 +63,7 @@ export class TravelLogin extends Component {
         if (!emailsyntax.test(this.state.email)) {
             validation = false;
             this.setState({
-                errorText: '* Incorrect Email format.'
+                errorText: '*Incorrect Email format.'
             })
         }
 
