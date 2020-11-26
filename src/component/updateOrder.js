@@ -149,6 +149,7 @@ export class UpdateOrder extends Component {
                                                 <select name="status" class="form-control" onChange={this.handleChangeProduct.bind(this)}>
                                                     <option value="">Select Status</option>                                                    
                                                     <option value="Order Placed">Order Placed</option>                                                    
+                                                    <option value="Awaiting Prescription">Awaiting Prescription</option>                                                    
                                                     <option value="Order Confirmed">Order Confirmed</option>                                                    
                                                     <option value="Order Shipped">Order Shipped</option>                                                    
                                                     <option value="Order Delivered">Order Delivered</option>                                                    

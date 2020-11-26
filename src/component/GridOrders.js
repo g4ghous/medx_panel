@@ -131,7 +131,13 @@ export class GridOrders extends Component {
                                                         <td>{order.name}</td>
                                                         <td>{order.phone}</td>
                                                         <td>{order.address}</td>
-                                                        <td><img src={order.prescription} height={50} width={50} /></td>
+                                                        <td>
+                                                            {order.prescription ?
+                                                                <img src={order.prescription} height={50} width={50} />
+                                                                :
+                                                                "Not Uploaded"    
+                                                            }
+                                                        </td>
                                                         <td>{order.date}</td>
                                                         <td>{order.total}</td>
                                                         <td>{order.status}</td>
