@@ -36,16 +36,9 @@ export class CreateCoupon extends Component {
                                             </div>
                                         </div> */}
                                         <div class="form-group row input-margin">
-                                            <label for="example-text-input" class="col-sm-2 col-form-label">Code</label>
+                                            <label for="example-text-input" class="col-sm-2 col-form-label">Coupon Code</label>
                                             <div class="col-sm-10">
                                                 <input class="form-control" name="code"  type="text" id="example-text-input" />
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row input-margin">
-                                            <label for="example-text-input" class="col-sm-2 col-form-label">Coupon Type</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" name="type"  type="text" id="example-text-input" />
                                             </div>
                                         </div>
 
