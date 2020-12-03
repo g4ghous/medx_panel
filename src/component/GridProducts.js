@@ -86,7 +86,6 @@ export class GridProducts extends Component {
 
     saveProductId = (id) => {
         localStorage.setItem('productId', id);
-        // console.log('Booking Id: ', id)
     }
     
     render() {
