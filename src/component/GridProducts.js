@@ -73,7 +73,6 @@ export class GridProducts extends Component {
             $(document).ready(function () {
                 $('#datatable2').DataTable();
             });
-            // console.log('data', res.data.data)
         }).catch((err) => {
             console.log(err)
             swal("Something went wrong!");
