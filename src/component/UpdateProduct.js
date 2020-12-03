@@ -18,14 +18,14 @@ export class UpdateProduct extends Component {
                 description: "",
                 stock: "",
                 price: "",
-                category_id: "",
+                category_id: null,
                 disease_name: "",
                 chemical_formula: "",
                 tablets_pack: "",
                 tablets_strip: "",
                 discount_percent: "",
-                category_name:"",
-                brand_id:"",
+                category_name: "",
+                brand_id: null,
                 product_id: ""
             }
         }
@@ -48,7 +48,6 @@ export class UpdateProduct extends Component {
             }
 
         }).then(res => {
-            // console.log('res', res.data)
             console.log('Response Data', res.data)
 
             this.setState({
@@ -57,7 +56,6 @@ export class UpdateProduct extends Component {
             $(document).ready(function () {
                 $('#datatable2').DataTable();
             });
-            // console.log('data', res.data.data)
         }).catch((err) => {
             console.log(err)
             if (err) {
@@ -106,7 +104,6 @@ export class UpdateProduct extends Component {
             }
 
         }).then(res => {
-            console.log('res', res.data)
             console.log('hey', res.data)
             this.setState({
                 disease: res.data,
@@ -133,7 +130,6 @@ export class UpdateProduct extends Component {
             }
 
         }).then(res => {
-            console.log('res', res.data)
             console.log('hey', res.data)
             this.setState({
                 brand_show: res.data,
@@ -262,10 +258,10 @@ export class UpdateProduct extends Component {
                                 </ul> */}
                                 <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <h4 class="mt-0 header-title">Add Product</h4>
+                                        <h4 class="mt-0 header-title">Update Product</h4>
 
                                         <div class="form-group banner-position input-margin">
-                                            <label for="example-search-input" class="col-form-label">Vehicle Image</label>
+                                            <label for="example-search-input" class="col-form-label">Product Image</label>
                                             <div>
                                                 <input type="file" name="image" onChange={this.handleFileInputLogo.bind(this)} class="form-control-file" />
                                             </div>

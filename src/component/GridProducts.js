@@ -10,6 +10,7 @@ export class GridProducts extends Component {
         super(props);
         this.state = {
             data: [],
+            productCategories: []
         }
     }
 
@@ -32,14 +33,12 @@ export class GridProducts extends Component {
 
         }).then(res => {
             console.log('res', res.data)
-            console.log('hey', res.data)
             this.setState({
                 data: res.data,
             })
             $(document).ready(function () {
                 $('#datatable2').DataTable();
             });
-            // console.log('data', res.data.data)
         }).catch((err) => {
             console.log(err)
             if (err) {
@@ -114,11 +113,8 @@ export class GridProducts extends Component {
                                                     <th>Name</th>
                                                     <th>Description</th>
                                                     <th>Stock</th>
-                                                    <th>Price</th>
-                                                     
+                                                    <th>Price</th>                                                     
                                                     <th>Actions</th>
-
-
                                                 </tr>
                                             </thead>
 
@@ -138,7 +134,7 @@ export class GridProducts extends Component {
                                                             </div> */}
                                                         <div class="icon-pad">
                                                             <a href="/component/updateProduct" onClick={this.saveProductId.bind(this, product.id)}><i className="fas fa-pencil-alt"></i></a>
-                                                            <a href="/component/ViewProduct"><i className="fas fa-eye"></i></a>
+                                                            <a href="/component/ViewProduct" onClick={this.saveProductId.bind(this, product.id)}><i className="fas fa-eye"></i></a>
                                                             <i className="fas fa-trash-alt" onClick={this.deleteProductHandler.bind(this, product.id)}></i>
                                                         </div>
                                                         </td>

@@ -210,12 +210,12 @@ export class CreateProduct extends Component {
             })
         }
 
-        if (this.state.chemical_formula == "") {
-            validation = false;
-            this.setState({
-                errorText: '*Product Formula is required'
-            })
-        }
+        // if (this.state.chemical_formula == "") {
+        //     validation = false;
+        //     this.setState({
+        //         errorText: '*Product Formula is required'
+        //     })
+        // }
 
         if(this.state.category_name == "tablets" || this.state.category_name == "tablet"){
 
@@ -259,14 +259,11 @@ export class CreateProduct extends Component {
             formData.append('stock', this.state.stock)
             formData.append('category_id', this.state.category_id)
             formData.append('brand_id', this.state.brand_id)
-
-
             formData.append('disease_name', this.state.disease_name)
             formData.append('chemical_formula', this.state.chemical_formula)
             formData.append('tablets_pack', this.state.tablets_pack)
             formData.append('tablets_strip', this.state.tablets_strip)
             formData.append('discount_percent', this.state.discount_percent)
-
 
             this.setState({
                 loading: true
@@ -381,7 +378,7 @@ export class CreateProduct extends Component {
                         this.setState({
                             category_name: o.name.toLowerCase()
                         })
-                        console.log("helllo", o.name.toLowerCase());
+                        console.log("Category Name", o.name.toLowerCase());
                         return true;
                     }
                 })
@@ -467,12 +464,16 @@ export class CreateProduct extends Component {
                                             </div>
                                         </div>
 
-                                        <div class="form-group row input-margin">
-                                            <label for="example-text-input" class="col-sm-2 col-form-label">Chemical Formula</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" name="chemical_formula" type="text" id="example-text-input" onChange={this.handleChangeProduct.bind(this)} />
+                                        {this.state.category_name == "medical instrument" ? 
+                                            null
+                                            :
+                                            <div class="form-group row input-margin">
+                                                <label for="example-text-input" class="col-sm-2 col-form-label">Chemical Formula</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" name="chemical_formula" type="text" id="example-text-input" onChange={this.handleChangeProduct.bind(this)} />
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
 
                                         <div class="form-group row input-margin">
                                             <label for="example-text-input" class="col-sm-2 col-form-label">Description</label>

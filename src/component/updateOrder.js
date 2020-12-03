@@ -10,6 +10,7 @@ export class UpdateOrder extends Component {
             this.state = {
                 data: [],
                 orderId: "",
+                ord_id: '',
                 status: '',
                 errorText: ''
             }
@@ -18,12 +19,13 @@ export class UpdateOrder extends Component {
 
     async componentDidMount() {
         var orderId = await localStorage.getItem('orderId');
-        this.setState({ orderId })
+        var ord_id = await localStorage.getItem('ord_id');
+        this.setState({ orderId, ord_id })
         console.log('Order Id: ', orderId);
 
         axios({
             method: 'get',
-            url: Serverurl + 'orders_show/' + orderId,
+            url: Serverurl + 'orders_show/' + ord_id,
             // data: data,
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -37,7 +39,7 @@ export class UpdateOrder extends Component {
             console.log('Order Data', res.data)
 
             this.setState({
-                data: res.data,
+                data: res.data[0],
             })
             $(document).ready(function () {
                 $('#datatable2').DataTable();
@@ -134,7 +136,7 @@ export class UpdateOrder extends Component {
                                 </ul> */}
                                 <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <h4 class="mt-0 header-title">Add Product</h4>
+                                        <h4 class="mt-0 header-title">Update Order</h4>
 
                                         <div class="form-group banner-position input-margin">
                                             <label for="example-search-input" class="col-form-label">Prescription Image</label>                                            

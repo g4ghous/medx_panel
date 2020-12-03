@@ -31,7 +31,7 @@ export class GridOrders extends Component {
             console.log('res', res.data)
             console.log('hey', res.data)
             this.setState({
-                data: res.data,
+                data: res.data
             })
             $(document).ready(function () {
                 $('#datatable2').DataTable();
@@ -85,8 +85,9 @@ export class GridOrders extends Component {
         })
     }
 
-    saveOrderId = (id) => {
-        localStorage.setItem('orderId', id);
+    saveOrderId = (order) => {
+        localStorage.setItem('ord_id', order.ord_id);
+        localStorage.setItem('orderId', order.id);
         // console.log('Booking Id: ', id)
     }
 
@@ -127,7 +128,7 @@ export class GridOrders extends Component {
                                             <tbody>
                                                 {this.state.data.map((order) =>
                                                     <tr key={order.id}>
-                                                        <td>{order.id}</td>
+                                                        <td>{order.ord_id}</td>
                                                         <td>{order.name}</td>
                                                         <td>{order.phone}</td>
                                                         <td>{order.address}</td>
@@ -143,7 +144,7 @@ export class GridOrders extends Component {
                                                         <td>{order.status}</td>
                                                         <td>
                                                             <div class="icon-pad">
-                                                                <a href="/component/updateOrder" onClick={this.saveOrderId.bind(this, order.id)}>
+                                                                <a href="/component/updateOrder" onClick={this.saveOrderId.bind(this, order)}>
                                                                     <i className="fas fa-pencil-alt"></i>
                                                                 </a>
                                                                 <a data-toggle="modal" data-target="#exampleModalCenter" onClick={this.view.bind(this, order.id)}><i className="fas fa-eye"></i></a>
