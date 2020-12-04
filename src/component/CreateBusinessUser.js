@@ -217,6 +217,8 @@ export class CreateBusinessUser extends Component {
                                                 <option>Select User Type</option>
                                                     <option value="admin">Admin</option>
                                                     <option value="customer">User</option>
+                                                    <option value="rider">Rider</option>
+
                                                 </select>
                                             </div>
                                         </div>

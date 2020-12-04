@@ -109,6 +109,13 @@ export class Navbar extends Component {
                                                     <span style={{ fontSize: "10.7px" }}>Users</span>
                                                 </a>
                                             </li>
+                                            
+                                            <li>
+                                                <a href="/component/GridRiders" className="waves-effect">
+                                                    <i className="fa fa-motorcycle"></i>
+                                                    <span style={{ fontSize: "10.7px" }}>Riders</span>
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="/component/gridProducts" className="waves-effect">
                                                     <i className="fab fa-product-hunt"></i>

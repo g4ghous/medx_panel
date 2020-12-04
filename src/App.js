@@ -69,7 +69,8 @@ import CreateDisease from './component/CreateDisease';
 import GridBrands from './component/GridBrands';
 import CreateBrands from './component/CreateBrands'
 import UpdateOrder from './component/updateOrder';
-
+import GridRiders from './component/GridRiders'
+import CreateRider from './component/CreateRider';
 
 
 export class App extends Component {
@@ -158,7 +159,8 @@ export class App extends Component {
             <Route path="/component/updateCoupon" component={UpdateCoupon} />
             <Route path="/component/updateNews" component={UpdateNews} />
             <Route path="/component/updateOrder" component={UpdateOrder} />
-
+            <Route path="/component/GridRiders" component={GridRiders}/>
+            <Route path="/component/CreateRider" component={CreateRider}/>
 
           </div>
         </Router>

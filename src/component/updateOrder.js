@@ -12,7 +12,9 @@ export class UpdateOrder extends Component {
                 orderId: "",
                 ord_id: '',
                 status: '',
-                errorText: ''
+                errorText: '',
+                rider_id:"",
+                rider:[]
             }
         }
     }
@@ -52,6 +54,40 @@ export class UpdateOrder extends Component {
                 console.log({ err })
             }
         })
+
+
+        axios({
+            method: 'get',
+            url: Serverurl + 'rider_show',
+            // data: data,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            config: {
+                headers: { 'Content-Type': 'application/json' }
+            }
+
+        }).then(res => {
+            // console.log('res', res.data)
+            console.log('Order Data', res.data)
+
+            this.setState({
+                rider: res.data,
+            })
+            $(document).ready(function () {
+                $('#datatable2').DataTable();
+            });
+            // console.log('data', res.data.data)
+        }).catch((err) => {
+            console.log(err)
+            if (err) {
+                // console.log('err', err.response)
+                console.log({ err })
+            }
+        })
+
+
+
     }
 
     updateHandler = () => {
@@ -81,7 +117,8 @@ export class UpdateOrder extends Component {
                 "city": this.state.data.city,
                 "postal_code": this.state.data.postal_code,
                 "address": this.state.data.address,
-                "address_optional": this.state.data.address_optional
+                "address_optional": this.state.data.address_optional,
+                "rider_id": this.state.rider_id
             }
 
             axios({
@@ -142,6 +179,21 @@ export class UpdateOrder extends Component {
                                             <label for="example-search-input" class="col-form-label">Prescription Image</label>                                            
                                             <div className="banner">
                                                 <img src={this.state.data.prescription} />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Rider</label>
+                                            <div class="col-sm-10">
+                                                <select name="rider_id" class="form-control" onChange={this.handleChangeProduct.bind(this)}>
+                                                    <option value="">Select Rider</option>
+                                                    {this.state.rider.map((rider) => {
+                                                        return (
+                                                            <option key={rider.id} value={rider.rider_id}>{rider.name}</option>
+                                                            
+                                                        )
+                                                    })}
+                                                </select>
                                             </div>
                                         </div>       
 

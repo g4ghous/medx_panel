@@ -9,8 +9,9 @@ export class GridOrders extends Component {
         super(props);
         this.state = {
             data: [],
-            order:[],
-            name:""
+            order: [],
+            rider:[],
+            user:[],
         }
     }
 
@@ -28,22 +29,68 @@ export class GridOrders extends Component {
             }
 
         }).then(res => {
-            console.log('res', res.data)
-            console.log('hey', res.data)
+            console.log('res-final', res)
+            console.log('r', res.data.order_rider)
+            console.log('u', res.data.order_user)
+
             this.setState({
-                data: res.data
+                data: res.data.order_Data,
+                rider: res.data.order_rider,
+                user: res.data.order_user
+
+
             })
             $(document).ready(function () {
                 $('#datatable2').DataTable();
             });
             // console.log('data', res.data.data)
+
+            // axios({
+            //     method: 'get',
+            //     url: Serverurl + "rider_show",
+            //     data: data,
+            //     headers: {
+            //         'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            //     },
+            //     config: {
+            //         headers: { 'Content-Type': 'application/json' }
+            //     }
+
+            // }).then(res => {
+            //     console.log('res', res.data)
+            //     console.log('hey', res.data)
+            //     res.data.find(o => {
+            //         let i = 0;
+            //         if (o.rider_id == this.state.data.rider_id) {
+
+            //             this.setState({
+            //                 data: {
+            //                     ...this.state.data,
+            //                     rider_id: o.name
+            //                 }
+            //             })
+            //             return true
+            //         }
+            //     })
+            //     $(document).ready(function () {
+            //         $('#datatable2').DataTable();
+            //     });
+            //     console.log('data', res.data.data)
+            // }).catch((err) => {
+            //     console.log(err)
+            //     if (err) {
+            //         console.log('err', err.response)
+            //         console.log({ err })
+            //     }
+            // })
+
         }).catch((err) => {
             console.log(err)
             if (err) {
                 // console.log('err', err.response)
                 console.log({ err })
             }
-        })        
+        })
     }
 
     view(id) {
@@ -115,10 +162,11 @@ export class GridOrders extends Component {
                                                     <th>Order id</th>
                                                     <th>Name</th>
                                                     <th>Phone</th>
-                                                    <th>Address</th>
                                                     <th>Prescription</th>
                                                     <th>Date</th>
                                                     <th>Total</th>
+                                                    <th>Rider</th>
+                                                    <th>Status Updated By</th>
                                                     <th>Status</th>
                                                     <th>Actions</th>
 
@@ -131,16 +179,21 @@ export class GridOrders extends Component {
                                                         <td>{order.ord_id}</td>
                                                         <td>{order.name}</td>
                                                         <td>{order.phone}</td>
-                                                        <td>{order.address}</td>
                                                         <td>
                                                             {order.prescription ?
                                                                 <img src={order.prescription} height={50} width={50} />
                                                                 :
-                                                                "Not Uploaded"    
+                                                                "Not Uploaded"
                                                             }
                                                         </td>
                                                         <td>{order.date}</td>
                                                         <td>{order.total}</td>
+                                                     
+                                                    
+                                                        <td>{this.state.rider == "" ? "null" : this.state.rider[0].name}</td>
+                                                    
+                                                        <td>{this.state.user == "" ? "null" : this.state.user[0].name}</td>
+                                                        {/* <td>{user.name}</td> */}
                                                         <td>{order.status}</td>
                                                         <td>
                                                             <div class="icon-pad">
@@ -160,7 +213,7 @@ export class GridOrders extends Component {
                         </div>
 
 
-                        
+
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -171,36 +224,36 @@ export class GridOrders extends Component {
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                    <div class="table-3">
-                                        <table id="datatable3" class="table">
-                                            <thead>
-                                                <tr>
+                                        <div class="table-3">
+                                            <table id="datatable3" class="table">
+                                                <thead>
+                                                    <tr>
 
-                                                    <th>Order id</th>
-                                                    <th>Image</th>
-                                                    <th>Name</th>
-                                                    <th>Package Type</th>
-                                                    <th>Qty</th>
-                                                    <th>Price</th>
+                                                        <th>Order id</th>
+                                                        <th>Image</th>
+                                                        <th>Name</th>
+                                                        <th>Package Type</th>
+                                                        <th>Qty</th>
+                                                        <th>Price</th>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {this.state.order.map((order_product) =>
-                                                    <tr key={order_product.id}>
-                                                        <td>{order_product.order_id}</td>
-                                                        <td><img src={order_product.image} height={30} width={30} /></td>
-                                                        <td>{order_product.name}</td>
-                                                        <td>{order_product.package_type}</td>
-                                                        <td>{order_product.quantity}</td>
-                                                        <td>{order_product.price}</td>
-                                                        
                                                     </tr>
-                                                )}
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    {this.state.order.map((order_product) =>
+                                                        <tr key={order_product.id}>
+                                                            <td>{order_product.order_id}</td>
+                                                            <td><img src={order_product.image} height={30} width={30} /></td>
+                                                            <td>{order_product.name}</td>
+                                                            <td>{order_product.package_type}</td>
+                                                            <td>{order_product.quantity}</td>
+                                                            <td>{order_product.price}</td>
+
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                 </div>
                                     <div class="modal-footer">
                                         {/* <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> */}
                                         {/* <button type="button" class="btn btn-primary">Save changes</button> */}
