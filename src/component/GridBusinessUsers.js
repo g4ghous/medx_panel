@@ -148,6 +148,7 @@ export class GridBusinessUsers extends Component {
                                         <table id="datatable2" class="table">
                                             <thead>
                                                 <tr>
+                                                    <th>User Id</th>
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Phone</th>
@@ -162,6 +163,7 @@ export class GridBusinessUsers extends Component {
                                                 
                                             {this.state.data.map((disease) =>
                                                     <tr key={disease.id}>
+                                                        <td>{disease.user_type == "admin" ? disease.admin_show_id : disease.user_type == "customer" ? disease.customer_show_id : disease.user_type == "rider" ? disease.rider_show_id : "null"}</td>
                                                         <td>{disease.name}</td>
                                                         <td>{disease.email}</td>
                                                         <td>{disease.phone}</td>
