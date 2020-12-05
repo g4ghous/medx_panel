@@ -156,6 +156,37 @@ export class GridOrders extends Component {
         })
     }
 
+
+    riderData = (id) => {
+        axios({
+            method: 'get',
+            url: Serverurl + 'rider_show/' + id,
+            // data: data,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            config: {
+                headers: { 'Content-Type': 'application/json' }
+            }
+
+        }).then(res => {
+            console.log('res', res.data)
+            this.setState({
+                rider: res.data,
+            })
+            $(document).ready(function () {
+                $('#datatable3').DataTable();
+            });
+            // console.log('data', res.data.data)
+        }).catch((err) => {
+            console.log(err)
+            if (err) {
+                // console.log('err', err.response)
+                console.log({ err })
+            }
+        })
+    }
+
     userData = (id) => {
         axios({
             method: 'get',
