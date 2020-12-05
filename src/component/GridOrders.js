@@ -10,8 +10,8 @@ export class GridOrders extends Component {
         this.state = {
             data: [],
             order: [],
-            rider:[],
-            user:[],
+            rider: [],
+            user: []
         }
     }
 
@@ -30,15 +30,9 @@ export class GridOrders extends Component {
 
         }).then(res => {
             console.log('res-final', res)
-            console.log('r', res.data.order_rider)
-            console.log('u', res.data.order_user)
 
             this.setState({
-                data: res.data.order_Data,
-                rider: res.data.order_rider,
-                user: res.data.order_user
-
-
+                data: res.data
             })
             $(document).ready(function () {
                 $('#datatable2').DataTable();
@@ -132,6 +126,66 @@ export class GridOrders extends Component {
         })
     }
 
+    riderData = (id) => {
+        axios({
+            method: 'get',
+            url: Serverurl + 'rider_show/' + id,
+            // data: data,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            config: {
+                headers: { 'Content-Type': 'application/json' }
+            }
+
+        }).then(res => {
+            console.log('res', res.data)
+            this.setState({
+                rider: res.data,
+            })
+            $(document).ready(function () {
+                $('#datatable3').DataTable();
+            });
+            // console.log('data', res.data.data)
+        }).catch((err) => {
+            console.log(err)
+            if (err) {
+                // console.log('err', err.response)
+                console.log({ err })
+            }
+        })
+    }
+
+    userData = (id) => {
+        axios({
+            method: 'get',
+            url: Serverurl + 'user_show/' + id,
+            // data: data,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            config: {
+                headers: { 'Content-Type': 'application/json' }
+            }
+
+        }).then(res => {
+            console.log('res', res.data)
+            this.setState({
+                user: res.data,
+            })
+            $(document).ready(function () {
+                $('#datatable3').DataTable();
+            });
+            // console.log('data', res.data.data)
+        }).catch((err) => {
+            console.log(err)
+            if (err) {
+                // console.log('err', err.response)
+                console.log({ err })
+            }
+        })
+    }
+
     saveOrderId = (order) => {
         localStorage.setItem('ord_id', order.ord_id);
         localStorage.setItem('orderId', order.id);
@@ -174,37 +228,40 @@ export class GridOrders extends Component {
                                             </thead>
 
                                             <tbody>
-                                                {this.state.data.map((order) =>
-                                                    <tr key={order.id}>
-                                                        <td>{order.ord_id}</td>
-                                                        <td>{order.name}</td>
-                                                        <td>{order.phone}</td>
-                                                        <td>
-                                                            {order.prescription ?
-                                                                <img src={order.prescription} height={50} width={50} />
-                                                                :
-                                                                "Not Uploaded"
-                                                            }
-                                                        </td>
-                                                        <td>{order.date}</td>
-                                                        <td>{order.total}</td>
-                                                     
-                                                    
-                                                        <td>{this.state.rider == "" ? "null" : this.state.rider[0].name}</td>
-                                                    
-                                                        <td>{this.state.user == "" ? "null" : this.state.user[0].name}</td>
-                                                        {/* <td>{user.name}</td> */}
-                                                        <td>{order.status}</td>
-                                                        <td>
-                                                            <div class="icon-pad">
-                                                                <a href="/component/updateOrder" onClick={this.saveOrderId.bind(this, order)}>
-                                                                    <i className="fas fa-pencil-alt"></i>
-                                                                </a>
-                                                                <a data-toggle="modal" data-target="#exampleModalCenter" onClick={this.view.bind(this, order.id)}><i className="fas fa-eye"></i></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                )}
+                                                {this.state.data.map((order, index) => {
+                                                    return(
+                                                        <tr key={index}>
+                                                            <td>{order.ord_id}</td>
+                                                            <td>{order.name}</td>
+                                                            <td>{order.phone}</td>
+                                                            <td>
+                                                                {order.prescription ?
+                                                                    <img src={order.prescription} height={50} width={50} />
+                                                                    :
+                                                                    "Not Uploaded"
+                                                                }
+                                                            </td>
+                                                            <td>{order.date}</td>
+                                                            <td>{order.total}</td>                                                        
+                                                            <td><a data-toggle="modal" data-target="#riderModal" onClick={() => this.riderData(order.rider_id)}>{order.rider_id}</a></td>                                                        
+                                                            <td><a data-toggle="modal" data-target="#userModal" onClick={() => this.userData(order.updated_by)}>{order.updated_by}</a></td>                                                        
+                                                        
+                                                            {/* <td>{order.rider_id ? (this.state.rider == "" ? null : this.state.rider[index] ? this.state.rider[index].name : null) : null}</td>
+                                                        
+                                                            <td>{order.rider_id ? (this.state.user == "" ? null : this.state.user[index] ? this.state.user[index].name : null) : null}</td> */}
+                                                            
+                                                            <td>{order.status}</td>
+                                                            <td>
+                                                                <div class="icon-pad">
+                                                                    <a href="/component/updateOrder" onClick={this.saveOrderId.bind(this, order)}>
+                                                                        <i className="fas fa-pencil-alt"></i>
+                                                                    </a>
+                                                                    <a data-toggle="modal" data-target="#exampleModalCenter" onClick={this.view.bind(this, order.id)}><i className="fas fa-eye"></i></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })}
                                             </tbody>
                                         </table>
                                     </div>
@@ -212,8 +269,7 @@ export class GridOrders extends Component {
                             </div>
                         </div>
 
-
-
+                        {/* Order Products Data Modal */}
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -261,6 +317,91 @@ export class GridOrders extends Component {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Rider Data Modal */}
+                        <div class="modal fade" id="riderModal" tabindex="-1" role="dialog" aria-labelledby="riderModalTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Rider Details</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="table-3">
+                                            <table id="datatable3" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Rider id</th>
+                                                        <th>Name</th>
+                                                        <th>Phone</th>
+                                                        <th>Email</th> 
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {this.state.rider.map((rider) =>
+                                                        <tr key={rider.rider_id}>
+                                                            <td>{rider.rider_id}</td>
+                                                            <td>{rider.name}</td>
+                                                            <td>{rider.phone}</td>
+                                                            <td>{rider.email}</td>
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        {/* <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> */}
+                                        {/* <button type="button" class="btn btn-primary">Save changes</button> */}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* User Data Modal */}
+                        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">User Details</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="table-3">
+                                            <table id="datatable3" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Rider id</th>
+                                                        <th>Name</th>
+                                                        <th>Phone</th>
+                                                        <th>Email</th> 
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {this.state.user.map((user) =>
+                                                        <tr key={user.id}>
+                                                            <td>{user.id}</td>
+                                                            <td>{user.name}</td>
+                                                            <td>{user.phone}</td>
+                                                            <td>{user.email}</td>
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        {/* <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> */}
+                                        {/* <button type="button" class="btn btn-primary">Save changes</button> */}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
