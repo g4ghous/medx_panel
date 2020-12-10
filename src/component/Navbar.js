@@ -159,7 +159,7 @@ export class Navbar extends Component {
                                                 <a href="/component/gridNews" className="waves-effect">
                                                     {/* <i className="fa fa-tag fa-lg"></i> */}
                                                     <i className="far fa-newspaper"></i>
-                                                    <span style={{ fontSize: "10.7px" }}>NEWS</span>
+                                                    <span style={{ fontSize: "10.7px" }}>News</span>
                                                 </a>
                                             </li>
                                             {/* <li>
